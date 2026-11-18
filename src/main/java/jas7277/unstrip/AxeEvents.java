@@ -5,8 +5,8 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.item.AxeItem;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 
@@ -15,7 +15,7 @@ public class AxeEvents {
         UseBlockCallback.EVENT.register((player, world, hand, hitResult) -> {
             ItemStack equippedItem = player.getItemInHand(hand);
 
-            if (equippedItem.getItem() instanceof AxeItem) {
+            if (equippedItem.is(holder -> holder.is(ItemTags.AXES))) {
                 if (!player.isShiftKeyDown() || hand != InteractionHand.MAIN_HAND) {
                     return InteractionResult.PASS;
                 }
@@ -47,7 +47,7 @@ public class AxeEvents {
                         );
                         world.playSound(null,
                                 hitResult.getBlockPos(),
-                                SoundEvents.AXE_STRIP,
+                                SoundEvents.AXE_STRIP.value(),
                                 SoundSource.BLOCKS,
                                 1.0f,
                                 1.0f
